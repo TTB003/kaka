@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Account</title>
+    <link rel="stylesheet" href="../css/Style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <style>   
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="../images/SGU-LOGO.png" style="width: 60px; height: 60px;" class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="../images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="../images/Instagram_icon.png" alt="Instagram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="../images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="../images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="../images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="#"><img src="../images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="#" onclick="openPopup()">Tài Khoản</a>
+            <a href="#" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Giỏ hàng
+            </a>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="../images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="#">Trang Chính</a></li>
+            <li><a href="#">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="#">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="#">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="#">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="#">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+    <!-- Modal Popup -->
+<div id="adminPopup">
+    <div class="popup-overlay"></div>
+    <div class="popup-content">
+        <button class="close-popup" onclick="closePopup()">×</button>
+        <h2>Thông Tin Tài Khoản</h2>
+        <label for="username">Tên:</label>
+        <input type="text" id="username" value="Admin" disabled />
+
+        <label for="role">Vai trò:</label>
+        <input type="text" id="role" value="Quản trị viên" disabled />
+
+        <button class="submit-btn" onclick="logout()">Đăng xuất</button>
+    </div>
+</div>
+
+
+
+    <main>
+        <div class="container">
+            <!-- Quản lý Người Dùng -->
+            <section id="user-management" class="section-box">
+                <h2>Quản Lý Người Dùng</h2>
+                <!-- Bảng Quản Lý Người Dùng -->
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>username</th>
+                            <th>Họ và Tên</th>
+                            <th>Email</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Các dòng người dùng sẽ được chèn vào đây -->
+                    </tbody>
+                </table>
+                <br><button type="button" class="btn-primary" onclick="showAddUserPopup()">Thêm Người Dùng</button>
+            </section>
+        </div>
+        
+            <!-- Quản lý Sản Phẩm -->
+            <section id="product-management" class="section-box">
+                <h2>Quản Lý Sản Phẩm</h2>
+                <form id="productForm">
+                    <input type="hidden" id="productId" />
+                    <div class="form-group">
+                        <label for="productName">Tên sản phẩm:</label>
+                        <input type="text" id="productName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Giá sản phẩm:</label>
+                        <input type="number" id="productPrice" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Hình ảnh:</label>
+                        <input type="file" id="productImage" />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Dùng để tặng ai:</label>
+                        <select id="category" required>
+                            <option value="Hoa Tặng Sinh Nhật Mẹ">Hoa tặng sinh nhật mẹ</option>
+                            <option value="Hoa Tặng Sinh Nhật Bạn">Hoa tặng sinh nhật bạn</option>
+                            <option value="Hoa Tặng Sinh Nhật Người Yêu">Hoa tặng sinh nhật người yêu</option>
+                            <option value="Hoa Sinh Nhật Sang Trọng">Hoa sinh nhật sang trọng</option>
+                            <option value="Hoa Sinh Nhật Giá Rẻ">Hoa sinh nhật giá rẻ</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" type="submit">Lưu sản phẩm</button>
+                    
+                </form>
+        
+                <table id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Dùng để tặng ai</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                            <th>Hình</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <!-- Các dòng sản phẩm sẽ được chèn vào đây -->
+                    </tbody>
+                </table>
+            </section>
+        
+            <div id="modalOverlay" class="modal-overlay"></div>
+            <div id="editProductModal" class="modal">
+                <form id="editProductForm">
+                    <input type="hidden" id="modalProductId">
+                    <div class="form-group">
+                        <label for="modalProductName">Tên sản phẩm:</label>
+                        <input type="text" id="modalProductName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="modalProductPrice">Giá sản phẩm:</label>
+                        <input type="number" id="modalProductPrice" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="modalProductImage">Hình ảnh:</label>
+                        <input type="file" id="modalProductImage" />
+                    </div>
+                    <div class="form-group">
+                        <label for="modalCategory">Dùng để tặng ai:</label>
+                        <select id="modalCategory" required>
+                            <option value="Hoa Tặng Sinh Nhật Mẹ">Hoa tặng sinh nhật mẹ</option>
+                            <option value="Hoa Tặng Sinh Nhật Bạn">Hoa tặng sinh nhật bạn</option>
+                            <option value="Hoa Tặng Sinh Nhật Người Yêu">Hoa tặng sinh nhật người yêu</option>
+                            <option value="Hoa Sinh Nhật Sang Trọng">Hoa sinh nhật sang trọng</option>
+                            <option value="Hoa Sinh Nhật Giá Rẻ">Hoa sinh nhật giá rẻ</option>
+                        </select>
+                    </div>
+                    <button type="submit">Lưu Chỉnh Sửa</button>
+                </form>
+                <button onclick="closeModal()">Đóng</button>
+            </div>
+
+
+            <!-- Quản lý Đơn Hàng -->
+            <section id="order-management" class="section-box">
+                <h2>Quản Lý Đơn Hàng</h2>
+                <form id="filterForm" class="filter-form">
+                    <div class="form-group">
+                        <label for="filterStartDate">Từ ngày:</label>
+                        <input type="date" id="filterStartDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="filterEndDate">Đến ngày:</label>
+                        <input type="date" id="filterEndDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="filterStatus">Trạng thái:</label>
+                        <select id="filterStatus">
+                            <option value="">Tất cả</option>
+                            <option value="new">Chưa thanh toán</option>
+                            <option value="paid">Đã thanh toán</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" type="button" onclick="filterOrders()">Lọc đơn hàng</button>
+                </form>
+                <table id="orderTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Khách Hàng</th>
+                            <th>Ngày</th>
+                            <th>Email</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                        <!-- Các dòng đơn hàng sẽ được chèn vào đây -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Thống kê Kinh Doanh -->
+            <section id="business-statistics" class="section-box">
+                <h2>Thống Kê Kinh Doanh</h2>
+                <form id="statisticsForm" class="filter-form">
+                    <div class="form-group">
+                        <label for="statsStartDate">Từ ngày:</label>
+                        <input type="date" id="statsStartDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="statsEndDate">Đến ngày:</label>
+                        <input type="date" id="statsEndDate" />
+                    </div>
+                    <button class="btn-primary" type="button" onclick="generateStatistics()">Thống kê</button>
+                </form>
+                <div id="statisticsResult">
+                    <!-- Kết quả thống kê sẽ được hiển thị ở đây -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

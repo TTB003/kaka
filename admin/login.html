@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Shop - Đăng nhập</title>
+    <link rel="stylesheet" href="../css/Style.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="../images/SGU-LOGO.png" style="width: 60px; height: 60px;" class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="../images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="../images/Instagram_icon.png" alt="Instagram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="../images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="../images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="../images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="../index.html"><img src="../images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="javascript:void(0)" id="accountLink" onclick="showAccountPopup()">Tài khoản</a>
+            <a href="cart.html" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Giỏ hàng
+            </a>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="../../images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="../index.html">Trang Chính</a></li>
+            <li><a href="../page/menu/me1.html">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="../page/menu/ban1.html">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="../page/menu/ny1.html">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="../page/menu/sang1.html">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="../page/menu/re1.html">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <img class="banner" src="../images/banner.jpg" alt="Banner">
+    </div>
+
+    <!-- Popup Đăng Nhập -->
+    <div id="loginPopup">
+        <form id="loginForm">
+            <button type="button" class="close-popup" onclick="closePopup('loginPopup')">×</button>
+            <h3>Đăng nhập</h3>
+            <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required><br>
+            <input type="password" id="loginPassword" placeholder="Mật khẩu" required><br>
+            <button type="submit">Đăng nhập</button>
+            <div class="signup-link">
+                Chưa có tài khoản? <a href="#" onclick="showSignupPopup()">Đăng ký ngay</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Popup Đăng Ký -->
+    <div id="signupPopup">
+        <form id="signupForm" onsubmit="return saveAccountData()">
+            <button type="button" class="close-popup" onclick="closePopup('signupPopup')">×</button>
+            <h3>Đăng ký tài khoản</h3>
+            <input type="text" id="name" placeholder="Tên khách hàng" required><br>
+            <input type="text" id="username" placeholder="Tên đăng nhập" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <input type="text" id="phone" placeholder="Số điện thoại" required><br>
+            <input type="password" id="password" placeholder="Mật khẩu" required><br>
+            <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required><br>
+            <div class="error-message" id="passwordError"></div>
+            <button type="submit">Đăng ký</button>
+            <div class="login-link">
+                Đã có tài khoản? <a href="#" onclick="showLoginPopup()">Đăng nhập</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Popup Thông Tin Tài Khoản -->
+    <div id="accountPopup" style="display: none;">
+        <div class="account-content">
+            <button type="button" class="close-popup" onclick="closePopup('accountPopup')">×</button>
+            <h3>Thông tin tài khoản</h3>
+            <div id="accountDetails"></div>
+            <button onclick="logout()">Đăng xuất</button>
+        </div>
+    </div>
+
+    <!-- Liên kết file JavaScript -->
+    <script src="../js/login.js"></script>
+</body>
+</html>

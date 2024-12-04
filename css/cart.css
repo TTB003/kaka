@@ -1,0 +1,178 @@
+/* Khu vực giỏ hàng */
+.cart-items {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Bảng giỏ hàng */
+#cart_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#cart_table th, #cart_table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#cart_table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#cart_table td img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+/* Nút xóa sản phẩm */
+button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #ff3333;
+}
+
+/* Tổng cộng giỏ hàng */
+.cart-summary {
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: right;
+}
+
+.cart-summary .total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cart-summary .total span {
+    font-size: 18px;
+    color: #333;
+}
+
+.cart-summary .checkout-button,
+.cart-summary .clear-cart-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cart-summary .checkout-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cart-summary .checkout-button:hover {
+    background-color: #45a049;
+}
+
+.cart-summary .clear-cart-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.cart-summary .clear-cart-button:hover {
+    background-color: #ff3333;
+}
+
+/* Phần tiêu đề giỏ hàng */
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Chỉnh sửa tổng giá tiền */
+#totalPrice {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f44336;
+}
+
+
+
+/* Hiển thị các sản phẩm không có trong giỏ hàng */
+.cart-items .empty-cart-message {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}
+
+#payment-history {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+#payment-history h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#payment-history ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#payment-history li {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+#payment-history li:last-child {
+    border-bottom: none;
+}
+
+#payment-history li strong {
+    font-weight: bold;
+    color: #333;
+}
+
+#payment-history li span {
+    color: #555;
+}
+
+#payment-history li .payment-item {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#payment-history li .payment-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+#payment-history li .payment-date {
+    font-size: 12px;
+    color: #888;
+}
+
+#payment-history.empty {
+    color: #888;
+    font-style: italic;
+}
+

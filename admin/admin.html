@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Shop - Admin</title>
+    <link rel="stylesheet" href="../css/Style.css">
+    <style>
+        /* Popup Đăng Ký */
+        #adminPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            width: 350px;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .popup-content label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .popup-content input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .popup-content .submit-btn {
+            background-color: #FFB6C1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .popup-content .submit-btn:hover {
+            background-color: #e8a2b3;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .close-popup:hover {
+            color: #333;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="../images/SGU-LOGO.png" style="width: 60px; height: 60px;" class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="../images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="../images/Instagram_icon.png" alt="Instagram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="../images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="../images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="../images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="#"><img src="../images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="#" onclick="openPopup()">Tài Khoản</a>
+            <a href="#" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Giỏ hàng
+            </a>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="../images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="#">Trang Chính</a></li>
+            <li><a href="#">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="#">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="#">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="#">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="#">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <img src="../images/banner.jpg" alt="Banner" class="banner">
+    </div>
+</div>
+
+    <div id="adminPopup">
+        <div class="popup-content">
+            <button type="button" class="close-popup" onclick="closePopup()">×</button>
+            <h3>Đăng nhập tài khoản</h3>
+            <form id="admin-signin-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" value="admin" readonly>
+
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" required>
+                    
+                </div>
+                <p class="error-message" id="error-message"></p>
+                <button type="submit" class="submit-btn">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const adminPasswords = ['Admin1@123', 'Admin2@123', 'Admin3@123'];
+    
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        }
+    
+        function openPopup() {
+            document.getElementById('adminPopup').style.display = 'flex';
+        }
+    
+        function closePopup() {
+            document.getElementById('adminPopup').style.display = 'none';
+        }
+    
+        document.getElementById('admin-signin-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+    
+            if (adminPasswords.includes(password)) {
+                alert('Đăng nhập thành công!');
+                closePopup();
+                window.location.href = '../admin/adminaccount.html';  <!-- Thay thế URL ở đây -->
+            } else {
+                errorMessage.textContent = 'Mật khẩu không đúng. Vui lòng thử lại.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>    
+</body>
+</html>

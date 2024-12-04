@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Shop</title>
+    <link rel="stylesheet" href="../../../css/login.css">
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css"> <!-- Bootstrap -->
+    <link rel="stylesheet" href="../../../css/product.css"> <!-- Product -->
+    <link rel="stylesheet" href="../../../css/product-header.css"> <!-- Header-->
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="../../../images/SGU-LOGO.png" style="width: 60px; height: 60px;"
+                    class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="../../../images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="../../../images/Instagram_icon.png" alt="Instagram Icon"
+                        style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="../../../images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="../../../images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="../../../images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="../../../index.html"><img src="../../../images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="javascript:void(0)" id="accountLink" onclick="showAccountPopup()">Tài khoản</a>
+            <a href="../../../cart/cart.html" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true" style="display: none;"></i>
+                Giỏ hàng
+            </a>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="../../../images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="../../../index.html">Trang Chính</a></li>
+            <li><a href="../../../page/menu/me1.html">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="../../../page/menu/ban1.html">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="../../../page/menu/ny1.html">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="../../../page/menu/sang1.html">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="../../../page/menu/re1.html">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+
+    <!-- Popup Đăng Nhập -->
+    <div id="loginPopup" style="display: none;">
+        <form onsubmit="handleLogin(); return false;">
+            <button type="button" class="close-popup" onclick="closePopup('loginPopup')">×</button>
+            <h3>Đăng nhập</h3>
+            <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required><br>
+            <input type="password" id="loginPassword" placeholder="Mật khẩu" required><br>
+            <button type="submit">Đăng nhập</button>
+            <div class="signup-link">
+                Chưa có tài khoản? <a href="#" onclick="showSignupPopup()">Đăng ký ngay</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Popup Đăng Ký -->
+    <div id="signupPopup" style="display: none;">
+        <form id="signupForm" onsubmit="return saveAccountData()">
+            <button type="button" class="close-popup" onclick="closePopup('signupPopup')">×</button>
+            <h3>Đăng ký tài khoản</h3>
+            <input type="text" id="name" placeholder="Tên khách hàng" required><br>
+            <input type="text" id="username" placeholder="Tên đăng nhập" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <input type="text" id="phone" placeholder="Số điện thoại" required><br>
+            <input type="text" id="address" placeholder="Địa chỉ" required><br> <!-- Thêm trường địa chỉ -->
+            <input type="password" id="password" placeholder="Mật khẩu" required><br>
+            <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required><br>
+            <div class="error-message" id="passwordError"></div>
+            <button type="submit">Đăng ký</button>
+            <div class="login-link">
+                Đã có tài khoản? <a href="#" onclick="showLoginPopup()">Đăng nhập</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Popup Thông Tin Tài Khoản -->
+    <div id="accountPopup" style="display: none;">
+        <div class="account-content">
+            <button type="button" class="close-popup" onclick="closePopup('accountPopup')">×</button>
+            <h3>Thông tin tài khoản</h3>
+            <div id="accountDetails"></div>
+            <button onclick="logout()">Đăng xuất</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- PRODUCT -->
+    <section class="product-details my-3 container">
+        <div class="product-details-content d-flex">
+            <div class="product-image flex-grow-1">
+                <div id="product-img-carousel" class="carousel slide carousel-fade" data-bs-ride="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../../../images/hoa44.jpg" class="d-block w-100" alt="Hoa Tươi">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../../../images/hoa44.jpg" class="d-block w-100" alt="Hoa Khác">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#product-img-carousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#product-img-carousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info flex-grow-1">
+                <h3 class="title">Dịu Dàng</h3>
+                <p>Giá: <span class="price">149,000 VND </span><span class="old-price">299,000 VND</span></p>
+                <div class="product-qty">
+                    <div>
+                        <p class="text-dark">Số lượng:</p>
+                    </div>
+                    <form action="">
+                        <div class="qty d-flex align-items-center m-0">
+                            <button type="button" class="btn btn-danger qtyminus">&minus;</button>
+                            <input name="qty" id="qty" min="1" max="20" step="1" value="1"
+                                class="form-control text-center">
+                            <button type="button" class="btn btn-success qtyplus">&plus;</button>
+                        </div>
+                    </form>
+                </div>
+                <button id="add-to-cart" class="btn-orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">Đặt
+                    hoa</button>
+                <div class="product-details-description">
+                    <h4>Thông tin chi tiết</h4>
+                    <div id="product-description" class="description-content collapsed">
+                        <p>
+                            Những bông hoa tươi mới nhất được tuyển chọn từ vườn. Chúng sẽ mang lại không khí tươi mới
+                            và niềm vui cho mọi dịp lễ.
+                        </p>
+                        <p class="more-content">
+                            Giỏ hoa chúc mừng may mắn được thiết kế với hoa hướng dương và cát tường mang đến sự may
+                            mắn, tài lộc phù hợp để làm quà
+                            tặng bạn bè nhân dịp khai trương. Nếu bạn đang tìm kiếm một mẫu giỏ hoa khai trương giá rẻ
+                            thì May Mắn là sự lựa chọn hoàn hảo.
+                            Giỏ hoa chúc mừng May Mắn được thiết kế từ:
+                        </p>
+                    </div>
+                    <button id="toggle-description" class="read-more" onclick="toggleDescription()">Xem thêm</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>
+                Lưu ý:
+            </p>
+            <p>
+                **Do được làm thủ công, nên sản phẩm ngoài thực tế sẽ có đôi chút khác biệt so với hình ảnh trên
+                website. Tuy nhiên, FlowerShop cam kết hoa sẽ giống khoảng 80% so với hình ảnh.
+            </p>
+            <p>
+                **Vì các loài hoa thay đổi theo mùa nên shop đảm bảo các loại hoa chính, còn các loại hoa lá phụ
+                sẽ thay đổi phù hợp giá cả và thiết kế sản phẩm.
+            </p>
+        </div>
+
+        <!-- Sản phẩm tương tự -->
+        <div class="related-products">
+            <h4>Sản phẩm tương tự</h4>
+            <div class="related-products-container">
+                <button class="scroll-left">
+                    <img src="../../../images/arrow-left-3.png" alt="Arrow Left" />
+                </button>
+                <div class="related-products-list">
+                    <div class="product-card">
+                        <a href="../../../page/product/ny/my-princess.html">
+                            <img src="../../../images/hoa23.jpg" alt="Hoa Tương Tự 1">
+                        </a>
+                        <p>My Princess</p>
+                        <p>420,000 VND</p>
+                    </div>
+                    <div class="product-card">
+                        <a href="../../../page/product/ban/your-day.html">
+                            <img src="../../../images/hoa20.jpg" alt="Hoa Tương Tự 2">
+                        </a>
+                        <p>Your Day</p>
+                        <p>350,000 VND</p>
+                    </div>
+                    <div class="product-card">
+                        <a href="../../../page/product/sang/mong-mer.html">
+                            <img src="../../../images/hoa28.jpg" alt="Hoa Tương Tự 3">
+                        </a>
+                        <p>Mộng Mer</p>
+                        <p>519,000 VND</p>
+                    </div>
+                    <div class="product-card">
+                        <a href="../../../page/product/me/nang-som-ban-mai.html">
+                            <img src="../../../images/hoa29.jpg" alt="Hoa Tương Tự 4">
+                        </a>
+                        <p>Nắng Sáng Ban Mai</p>
+                        <p>320,000 VND</p>
+                    </div>
+                    <div class="product-card">
+                        <a href="../../../page/product/ban/e-va.html">
+                            <img src="../../../images/hoa30.jpg" alt="Hoa Tương Tự 5">
+                        </a>
+                        <p>E-Va</p>
+                        <p>399,000 VND</p>
+                    </div>
+                    <div class="product-card">
+                        <a href="../../../page/product/me/hoa-nu-cuoi.html">
+                            <img src="../../../images/hoa31.jpg" alt="Hoa Tương Tự 6">
+                        </a>
+                        <p>Hoa Nụ Cười</p>
+                        <p>170,000 VND</p>
+                    </div>
+                    <div class="product-card">
+                        <a href="../../../page/product/re/pinky.html">
+                            <img src="../../../images/hoa32.jpg" alt="Hoa Tương Tự 7">
+                        </a>
+                        <p>Pinky</p>
+                        <p>159,000 VND</p>
+                    </div>
+                </div>
+                <button class="scroll-right">
+                    <img src="../../../images/arrow-right-3.png" alt="Arrow Right" />
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Về chúng tôi</h4>
+                <p>Công ty TNHH Bình Bá Dơ</p>
+                <p>Hotline:(028)38305570</p>
+                <p>Email:FLowerShop@gmail.com</p>
+            </div>
+            <div class="footer-links">
+                <h4>Theo dõi chúng tôi</h4>
+                <a href="https://facebook.com" target="_blank">Facebook</a>
+                <a href="https://instagram.com" target="_blank">Instagram</a>
+                <a href="https://twitter.com" target="_blank">Twitter</a>
+                <a href="https://youtube.com" target="_blank">YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SGU Univercity</p>
+        </div>
+    </footer>
+
+    <script>
+        function performSearch() {
+            const query = document.getElementById("searchInput").value;
+            if (query.trim()) {
+                window.location.href = `/search?query=${encodeURIComponent(query)}`;
+            } else {
+                alert("Vui lòng nhập từ khóa để tìm kiếm.");
+            }
+        }
+    </script>
+
+    <script src="../../../js/scripts.js"></script>
+    <script src="../../../js/product.js"></script>
+    <script src="../../../js/searchproduct.js"></script>
+    <script src="../../../js/dathang.js"></script>
+    <script src="../../../js/login.js"></script>
+</body>
+
+</html>

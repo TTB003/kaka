@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link rel="stylesheet" href="../../css/Menu.css">
+    <link rel="stylesheet" href="../../css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Shop - Trang 3</title>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="../../images/SGU-LOGO.png" style="width: 60px; height: 60px;"
+                    class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="../../images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="../../images/Instagram_icon.png" alt="Instagram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="../../images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="../../images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="../../images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="../../index.html"><img src="../../images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="javascript:void(0)" id="accountLink" onclick="showAccountPopup()">Tài khoản</a>
+            <a href="../../cart/cart.html" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true" style="display: none;"></i>
+                Giỏ hàng
+            </a>            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="../../images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+                <script src="../../js/scripts.js"></script>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="../../index.html">Trang Chính</a></li>
+            <li><a href="../menu/me1.html">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="../menu/ban1.html">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="../menu/ny1.html">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="../menu/sang1.html">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="../menu/re1.html">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+
+    <!-- Popup Đăng Nhập -->
+<div id="loginPopup" style="display: none;">
+    <form onsubmit="handleLogin(); return false;">
+        <button type="button" class="close-popup" onclick="closePopup('loginPopup')">×</button>
+        <h3>Đăng nhập</h3>
+        <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required><br>
+        <input type="password" id="loginPassword" placeholder="Mật khẩu" required><br>
+        <button type="submit">Đăng nhập</button>
+        <div class="signup-link">
+            Chưa có tài khoản? <a href="#" onclick="showSignupPopup()">Đăng ký ngay</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Đăng Ký -->
+<div id="signupPopup" style="display: none;">
+    <form id="signupForm" onsubmit="return saveAccountData()">
+        <button type="button" class="close-popup" onclick="closePopup('signupPopup')">×</button>
+        <h3>Đăng ký tài khoản</h3>
+        <input type="text" id="name" placeholder="Tên khách hàng" required><br>
+        <input type="text" id="username" placeholder="Tên đăng nhập" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="phone" placeholder="Số điện thoại" required><br>
+        <input type="text" id="address" placeholder="Địa chỉ" required><br> <!-- Thêm trường địa chỉ -->
+        <input type="password" id="password" placeholder="Mật khẩu" required><br>
+        <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required><br>
+        <div class="error-message" id="passwordError"></div>
+        <button type="submit">Đăng ký</button>
+        <div class="login-link">
+            Đã có tài khoản? <a href="#" onclick="showLoginPopup()">Đăng nhập</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Thông Tin Tài Khoản -->
+<div id="accountPopup" style="display: none;">
+    <div class="account-content">
+        <button type="button" class="close-popup" onclick="closePopup('accountPopup')">×</button>
+        <h3>Thông tin tài khoản</h3>
+        <div id="accountDetails"></div>
+        <button onclick="logout()">Đăng xuất</button>
+    </div>
+</div>
+    </div>
+    
+    <div class="content">
+        <h1 class="title">Hoa Sinh Nhật Giá Rẻ - Trang 3</h1>
+        
+        <div class="filter-bar">
+            <div class="filter-container">
+                <label for="sortBy">Sắp xếp theo:</label>
+                <select id="sortBy" onchange="sortProducts()">
+                    <option value="default">Mặc định</option>
+                    <option value="priceLowToHigh">Giá từ thấp đến cao</option>
+                    <option value="priceHighToLow">Giá từ cao đến thấp</option>
+                    <option value="nameAsc">Tên (A - Z)</option>
+                    <option value="nameDesc">Tên (Z - A)</option>
+                </select>
+            </div>
+            <div class="filter-container">
+                <label for="itemsPerPage">Số lượng:</label>
+                <select id="itemsPerPage" onchange="updateItemsPerPage()">
+                    <option value="4" selected>4</option> 
+                    <option value="12">12</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-item" data-price="159,000 VND">
+                <a href="../product/re/pinky.html"><img src="../../images/hoa32.jpg" alt="Pinky" /></a>
+                <div class="product-info">
+                    <a href="../product/re/pinky.html"><h3>Pinky</h3></a>
+                    <div class="price">159,000 VND <span class="old-price">349,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="189,000 VND">
+                <a href="../product/re/tinh-khiet.html"><img src="../../images/hoa34.jpg" alt="Tinh Khiết" /></a>
+                <div class="product-info">
+                    <a href="../product/re/tinh-khiet.html"><h3>Tinh Khiết</h3></a>
+                    <div class="price">189,000 VND <span class="old-price">300,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="229,000 VND">
+                <a href="../product/re/chuyen-doi-ta.html"><img src="../../images/hoa36.jpg" alt="Chuyện Đôi Ta" /></a>
+                <div class="product-info">
+                    <a href="../product/re/chuyen-doi-ta.html"><h3>Chuyện Đôi Ta</h3></a>
+                    <div class="price">229,000 VND <span class="old-price">399,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="239,000 VND">
+                <a href="../product/re/xuan-dong-day.html"><img src="../../images/hoa38.jpg" alt="Xuân Đong Đầy" /></a>
+                <div class="product-info">
+                    <a href="../product/re/xuan-dong-day.html"><h3>Xuân Đong Đầy</h3></a>
+                    <div class="price">239,000 VND <span class="old-price">499,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <a href="re1.html">1</a>
+            <a href="re2.html">2</a>
+            <a href="re3.html" class="active">3</a>
+        </div>
+        <div class="footer-text" style="text-align: center; padding: 20px 0; font-family: Arial, sans-serif;">
+            <p>Hiển thị từ 9 đến 12 / 12 (1 Trang)</p>
+        </div>
+    </div>
+
+    <div class="footer-content" style="background-color: #FFC0CB; color: #fff; text-align: center; padding: 20px 0; font-family: Arial, sans-serif; width: 103%; box-sizing: border-box; margin-bottom: -30px; margin-left: -18px;">
+        <h2>Hoa Sinh Nhật Giá Rẻ Dành Cho Mọi Người</h2>
+        <p>Hoa đẹp không nhất thiết phải đắt đỏ, vì đôi khi hạnh phúc chỉ cần một bó hoa giản đơn nhưng đầy ắp yêu thương. Mỗi bông hoa, dù là hoa hồng thắm hay hoa cúc nhạt, đều mang theo một câu chuyện riêng – câu chuyện của sự quan tâm, của những lời chúc tốt đẹp gửi đến người thân yêu trong ngày đặc biệt.</p>         
+        <p>Vẻ đẹp của hoa không chỉ nằm ở giá trị vật chất, mà chính là tình cảm, những cảm xúc thầm lặng mà chúng ta dành tặng cho nhau. Mỗi bó hoa là một lời chúc, một sự quan tâm mà chúng ta muốn gửi gắm, để người nhận cảm nhận được sự yêu thương, dù chỉ là một khoảnh khắc ngắn ngủi.</p>
+        <p>Hãy gọi ngay <a href="tel:02838305570" style="color: #fff;">02838305570</a> để được tư vấn và lựa chọn những mẫu hoa phù hợp, hoặc đặt hoa nhanh chóng, để mang niềm vui, sự tươi mới đến người thân yêu, vì đôi khi, hạnh phúc chính là một bó hoa giản dị nhưng đầy ắp yêu thương.</p>
+    </div>
+</div>
+    <script>
+        function performSearch() {
+            const query = document.getElementById("searchInput").value;
+            if (query.trim()) {
+                window.location.href = `/search?query=${encodeURIComponent(query)}`;
+            } else {
+                alert("Vui lòng nhập từ khóa để tìm kiếm.");
+            }
+        }
+        function sortProducts() {
+        const sortBy = document.getElementById('sortBy').value;
+        const productGrid = document.querySelector('.product-grid');
+        const productItems = Array.from(productGrid.children);
+
+        // Sắp xếp sản phẩm dựa trên giá trị được chọn
+        if (sortBy === 'priceLowToHigh') {
+            productItems.sort((a, b) => {
+                return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+            });
+        } else if (sortBy === 'priceHighToLow') {
+            productItems.sort((a, b) => {
+                return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+            });
+        } else if (sortBy === 'nameAsc') {
+            productItems.sort((a, b) => {
+                return a.querySelector('h3').innerText.localeCompare(b.querySelector('h3').innerText);
+            });
+        } else if (sortBy === 'nameDesc') {
+            productItems.sort((a, b) => {
+                return b.querySelector('h3').innerText.localeCompare(a.querySelector('h3').innerText);
+            });
+        }
+
+        // Xóa nội dung cũ và thêm lại các sản phẩm đã sắp xếp
+        productGrid.innerHTML = '';
+        productItems.forEach(item => productGrid.appendChild(item));
+    }
+    </script>
+     <script src="../../js/searchmenu.js"></script>
+     <script src="../../js/login.js"></script>
+     <script src="../../js/sp.js"></script>
+</body>
+</html>

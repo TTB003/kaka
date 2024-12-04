@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
+    <title>Flower Shop</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="images/SGU-LOGO.png" style="width: 60px; height: 60px;"
+                    class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="images/Instagram_icon.png" alt="Instagram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="index.html"><img src="images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="javascript:void(0)" id="accountLink" onclick="showAccountPopup()">Tài khoản</a>
+            <a href="cart/cart.html" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true" style="display: none;"></i>
+                Giỏ hàng
+            </a>            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html">Trang Chính</a></li>
+            <li><a href="page/menu/me1.html">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="page/menu/ban1.html">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="page/menu/ny1.html">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="page/menu/sang1.html">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="page/menu/re1.html">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <img class="banner" src="images/banner.jpg" alt="Banner">
+    </div>
+
+    <!-- Popup Đăng Nhập -->
+<div id="loginPopup" style="display: none;">
+    <form onsubmit="handleLogin(); return false;">
+        <button type="button" class="close-popup" onclick="closePopup('loginPopup')">×</button>
+        <h3>Đăng nhập</h3>
+        <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required><br>
+        <input type="password" id="loginPassword" placeholder="Mật khẩu" required><br>
+        <button type="submit">Đăng nhập</button>
+        <div class="signup-link">
+            Chưa có tài khoản? <a href="#" onclick="showSignupPopup()">Đăng ký ngay</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Đăng Ký -->
+<div id="signupPopup" style="display: none;">
+    <form id="signupForm" onsubmit="return saveAccountData()">
+        <button type="button" class="close-popup" onclick="closePopup('signupPopup')">×</button>
+        <h3>Đăng ký tài khoản</h3>
+        <input type="text" id="name" placeholder="Tên khách hàng" required><br>
+        <input type="text" id="username" placeholder="Tên đăng nhập" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="phone" placeholder="Số điện thoại" required><br>
+        <input type="text" id="address" placeholder="Địa chỉ" required><br> <!-- Thêm trường địa chỉ -->
+        <input type="password" id="password" placeholder="Mật khẩu" required><br>
+        <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required><br>
+        <div class="error-message" id="passwordError"></div>
+        <button type="submit">Đăng ký</button>
+        <div class="login-link">
+            Đã có tài khoản? <a href="#" onclick="showLoginPopup()">Đăng nhập</a>
+        </div>
+    </form>
+</div>
+
+
+<!-- Popup Thông Tin Tài Khoản -->
+<div id="accountPopup" style="display: none;">
+    <div class="account-content">
+        <button type="button" class="close-popup" onclick="closePopup('accountPopup')">×</button>
+        <h3>Thông tin tài khoản</h3>
+        <div id="accountDetails"></div>
+        <button onclick="logout()">Đăng xuất</button>
+    </div>
+</div>
+    </div>
+    <h1 class="title">Sản Phẩm Mới</h1>
+    <br><br>
+    <div class="product-grid">
+        <div class="product-item">
+            <a href="page/product/ban/aurora.html"><img src="images/hoa25.jpg" alt="Aurora" /></a>
+            <div class="product-info">
+                <a href="page/product/ban/aurora.html">
+                    <h3>Aurora</h3>
+                </a>
+                <div class="price">499,000 VND <span class="old-price">710,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <a href="page/product/me/canday-date.html"><img src="images/hoa39.jpg" alt="Candy Date" /></a>
+            <div class="product-info">
+                <a href="page/product/me/canday-date.html">
+                    <h3>Candy Date</h3>
+                </a>
+                <div class="price">299,000 VND <span class="old-price">400,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <a href="page/product/ny/nang-tho.html"><img src="images/hoa15.jpg" alt="Nàng Thơ" /></a>
+            <div class="product-info">
+                <a href="page/product/ny/nang-tho.html">
+                    <h3>Nàng Thơ</h3>
+                </a>
+                <div class="price">249,000 VND <span class="old-price">449,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <a href="page/product/sang/beauty.html"><img src="images/hoa12.jpg" alt="Beauty" /></a>
+            <div class="product-info">
+                <a href="page/product/sang/beauty.html">
+                    <h3>Beauty</h3>
+                </a>
+                <div class="price">449,000 VND <span class="old-price">710,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+    </div>
+    <h1 class="title">Sản Phẩm Bán Chạy</h1>
+    <div class="product-grid">
+        <div class="product-item">
+            <a href="page/product/ban/huong-ngay-nang.html"><img src="images/hoa5.jpg"
+                    alt="Hương Ngày Nắng" /></a>
+            <div class="product-info">
+                <a href="page/product/ban/huong-ngay-nang.html">
+                    <h3>Hương Ngày Nắng</h3>
+                </a>
+                <div class="price">425,000 VND <span class="old-price">600,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <a href="page/product/me/dieu-uoc.html"><img src="images/hoa47.jpg" alt="Điều Ước" /></a>
+            <div class="product-info">
+                <a href="page/product/me/dieu-uoc.html">
+                    <h3>Điều Ước</h3>
+                </a>
+                <div class="price">450,000 VND <span class="old-price">600,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <a href="page/product/ny/my-princess.html"><img src="images/hoa23.jpg" alt="My Princess" /></a>
+            <div class="product-info">
+                <a href="page/product/ny/my-princess.html">
+                    <h3>My Princess</h3>
+                </a>
+                <div class="price">420,000 VND <span class="old-price">600,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <a href="page/product/sang/peony.html"><img src="images/hoa2.jpg" alt="Peony" /></a>
+            <div class="product-info">
+                <a href="page/product/sang/peony.html">
+                    <h3>Peony</h3>
+                </a>
+                <div class="price">599,000 VND <span class="old-price">600,000 VND</span></div>
+                <button class="order-button">ĐẶT HÀNG</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Về chúng tôi</h4>
+                <p>Công ty TNHH Bình Bá Dơ</p>
+                <p>Hotline:(028)38305570</p>
+                <p>Email:FLowerShop@gmail.com</p>
+            </div>
+            <div class="footer-links">
+                <h4>Theo dõi chúng tôi</h4>
+                <a href="https://facebook.com" target="_blank">Facebook</a>
+                <a href="https://instagram.com" target="_blank">Instagram</a>
+                <a href="https://twitter.com" target="_blank">Twitter</a>
+                <a href="https://youtube.com" target="_blank">YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SGU Univercity</p>
+        </div>
+    </footer>
+
+    <script>
+        function performSearch() {
+            const query = document.getElementById("searchInput").value;
+            if (query.trim()) {
+                window.location.href = `/search?query=${encodeURIComponent(query)}`;
+            } else {
+                alert("Vui lòng nhập từ khóa để tìm kiếm.");
+            }
+        }
+    </script>
+
+    <script src="js/search.js"></script>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

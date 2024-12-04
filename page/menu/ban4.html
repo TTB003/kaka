@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link rel="stylesheet" href="../../css/Menu.css">
+    <link rel="stylesheet" href="../../css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Shop</title>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <a href="https://www.sgu.edu.vn/"><img src="../../images/SGU-LOGO.png" style="width: 60px; height: 60px;"
+                    class="social-icons"></a>
+            <div class="hotline">HOTLINE: (028)38305570</div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100009526723686">
+                    <img src="../../images/FB_icon.jpg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089018237035">
+                    <img src="../../images/Instagram_icon.png" alt="Instagram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/dtp.clo">
+                    <img src="../../images/Telegram_icon.png" alt="Telegram Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100036720456189">
+                    <img src="../../images/X_icon.png" alt="X Icon" style="width: 20px; height: 20px;">
+                </a>
+                <a href="https://www.facebook.com/vinhthieu.nguyen.982">
+                    <img src="../../images/whatsapp_icon.png" alt="WhatsApp Icon" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="center" href="../../index.html"><img src="../../images/FlowerShop.png" alt="Logo"></a>
+        </div>
+        <div class="header-right">
+            <a href="javascript:void(0)" id="accountLink" onclick="showAccountPopup()">Tài khoản</a>
+            <a href="../../cart/cart.html" class="cart">
+                <i class="fa fa-shopping-cart" aria-hidden="true" style="display: none;"></i>
+                Giỏ hàng
+            </a>            
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." oninput="showSuggestions()">
+                <img src="../../images/search-icon.png" alt="Search Icon" id="searchIcon" class="search-icon">
+                <div id="suggestions"></div>
+                <script src="../../js/scripts.js"></script>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="nav-bar">
+        <ul>
+            <li><a href="../../index.html">Trang Chính</a></li>
+            <li><a href="../menu/me1.html">Hoa tặng sinh nhật mẹ</a></li>
+            <li><a href="../menu/ban1.html">Hoa tặng sinh nhật bạn</a></li>
+            <li><a href="../menu/ny1.html">Hoa tặng sinh nhật người yêu ~ bạn gái</a></li>
+            <li><a href="../menu/sang1.html">Hoa sinh nhật sang trọng</a></li>
+            <li><a href="../menu/re1.html">Hoa sinh nhật giá rẻ</a></li>
+        </ul>
+    </div>
+
+    <!-- Popup Đăng Nhập -->
+<div id="loginPopup" style="display: none;">
+    <form onsubmit="handleLogin(); return false;">
+        <button type="button" class="close-popup" onclick="closePopup('loginPopup')">×</button>
+        <h3>Đăng nhập</h3>
+        <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required><br>
+        <input type="password" id="loginPassword" placeholder="Mật khẩu" required><br>
+        <button type="submit">Đăng nhập</button>
+        <div class="signup-link">
+            Chưa có tài khoản? <a href="#" onclick="showSignupPopup()">Đăng ký ngay</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Đăng Ký -->
+<div id="signupPopup" style="display: none;">
+    <form id="signupForm" onsubmit="return saveAccountData()">
+        <button type="button" class="close-popup" onclick="closePopup('signupPopup')">×</button>
+        <h3>Đăng ký tài khoản</h3>
+        <input type="text" id="name" placeholder="Tên khách hàng" required><br>
+        <input type="text" id="username" placeholder="Tên đăng nhập" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <input type="text" id="phone" placeholder="Số điện thoại" required><br>
+        <input type="text" id="address" placeholder="Địa chỉ" required><br> <!-- Thêm trường địa chỉ -->
+        <input type="password" id="password" placeholder="Mật khẩu" required><br>
+        <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required><br>
+        <div class="error-message" id="passwordError"></div>
+        <button type="submit">Đăng ký</button>
+        <div class="login-link">
+            Đã có tài khoản? <a href="#" onclick="showLoginPopup()">Đăng nhập</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Thông Tin Tài Khoản -->
+<div id="accountPopup" style="display: none;">
+    <div class="account-content">
+        <button type="button" class="close-popup" onclick="closePopup('accountPopup')">×</button>
+        <h3>Thông tin tài khoản</h3>
+        <div id="accountDetails"></div>
+        <button onclick="logout()">Đăng xuất</button>
+    </div>
+</div>
+    </div>
+    
+    <div class="content">
+        <h1 class="title">Hoa Tặng Sinh Nhật Bạn</h1>
+        
+        <div class="filter-bar">
+            <div class="filter-container">
+                <label for="sortBy">Sắp xếp theo:</label>
+                <select id="sortBy" onchange="sortProducts()">
+                    <option value="default">Mặc định</option>
+                    <option value="priceLowToHigh">Giá từ thấp đến cao</option>
+                    <option value="priceHighToLow">Giá từ cao đến thấp</option>
+                    <option value="nameAsc">Tên (A - Z)</option>
+                    <option value="nameDesc">Tên (Z - A)</option>
+                </select>
+            </div>
+            <div class="filter-container">
+                <label for="itemsPerPage">Số lượng:</label>
+                <select id="itemsPerPage" onchange="updateItemsPerPage()">
+                    <option value="4">4</option>
+                    <option value="12" selected>12</option> 
+                </select>
+            </div>
+        </div>
+        
+
+        <div class="product-grid">
+            <!-- Dòng 1 -->
+            <div class="product-item" data-price="425,000 VND">
+                <a href="../product/ban/huong-ngay-nang.html"><img src="../../images/hoa5.jpg"
+                        alt="Hương Ngày Nắng" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/huong-ngay-nang.html">
+                        <h3>Hương Ngày Nắng</h3>
+                    </a>
+                    <div class="price">425,000 VND <span class="old-price">600,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="150,000 VND">
+                <a href="../product/ban/em-be-xinh.html"><img src="../../images/hoa10.jpg" alt="Em Bé Xinh" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/em-be-xinh.html">
+                        <h3>Em Bé Xinh</h3>
+                    </a>
+                    <div class="price">150,000 VND <span class="old-price">300,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="370,000 VND">
+                <a href="../product/ban/hen-ho.html"><img src="../../images/hoa15.jpg" alt="Hẹn Hò" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/hen-ho.html">
+                        <h3>Hẹn Hò</h3>
+                    </a>
+                    <div class="price">370,000 VND <span class="old-price">410,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="350,000 VND">
+                <a href="../product/ban/your-day.html"><img src="../../images/hoa20.jpg" alt="Your Day" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/your-day.html">
+                        <h3>Your Day</h3>
+                    </a>
+                    <div class="price">350,000 VND</div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+
+            <!-- Dòng 2 -->
+            <div class="product-item" data-price="499,000 VND">
+                <a href="../product/ban/aurora.html"><img src="../../images/hoa25.jpg" alt="Aurora" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/aurora.html"><h3>Aurora</h3></a>
+                    <div class="price">499,000 VND <span class="old-price">710,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="399,000 VND">
+                <a href="../product/ban/e-va.html"><img src="../../images/hoa30.jpg" alt="Eva" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/e-va.html"><h3>Eva</h3></a>
+                    <div class="price">399,000 VND <span class="old-price">499,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="1090,000 VND">
+                <a href="../product/ban/liberties.html"><img src="../../images/hoa35.jpg" alt="Liberties" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/liberties.html"><h3>Liberties</h3></a>
+                    <div class="price">1,090,000 VND</div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="820,000 VND">
+                <a href="../product/ban/ha-thi-tham.html"><img src="../../images/hoa40.jpg" alt="Ha Thi Tham" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/ha-thi-tham.html"><h3>Hạ Thì Thầm</h3></a>
+                    <div class="price">820,000 VND</div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+
+            <!-- Dòng 3 -->
+            <div class="product-item" data-price="100,000 VND">
+                <a href="../product/ban/xuan-rang-ngoi.html"><img src="../../images/hoa45.jpg" alt="Xuân Rạng Ngời" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/xuan-rang-ngoi.html"><h3>Xuân Rạng Ngời</h3></a>
+                    <div class="price">100,000 VND <span class="old-price">250,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="180,000 VND">
+                <a href="../product/ban/valentino.html"><img src="../../images/hoa50.jpg" alt="Valentino" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/valentino.html"><h3>Valentino</h3></a>
+                    <div class="price">180,000 VND <span class="old-price">300,000 VND</span></div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="400,000 VND">
+                <a href="../product/ban/vintage.html"><img src="../../images/hoa55.jpg" alt="Vintage" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/vintage.html"><h3>Vintage</h3></a>
+                    <div class="price">400,000 VND</div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+            <div class="product-item" data-price="320,000 VND"> 
+                <a href="../product/ban/oceanic.html"><img src="../../images/hoa60.jpg" alt="Oceanic" /></a>
+                <div class="product-info">
+                    <a href="../product/ban/oceanic.html"><h3>Oceanic</h3></a>
+                    <div class="price">320,000 VND</div>
+                    <button class="order-button">ĐẶT HÀNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="pagination">
+            <a href="ban1.html" class="active">1</a>
+        </div>
+        <div class="footer">
+            <div class="footer-text" style="padding: 20px 0; font-family: Arial, sans-serif;">
+                <p>Hiển thị từ 1 đến 12 / 12 (1 Trang)</p>
+            </div>
+            <div class="footer-content" style="background-color: #FFC0CB; color: #fff; text-align: center; padding: 20px 0; font-family: Arial, sans-serif; width: 102%; box-sizing: border-box; margin-bottom: -15px; margin-left: -15px;">
+            <h2>Hoa Sinh Nhật Tặng Bạn</h2>
+            <p>Hoa không chỉ là món quà vật chất, mà là một thông điệp đầy yêu thương, một lời chúc ngọt ngào gửi đến người bạn thân thiết của bạn trong ngày sinh nhật. Mỗi bông hoa đều mang theo một lời chúc hạnh phúc, niềm vui và những điều tốt đẹp nhất, hy vọng sẽ làm sáng bừng không gian và trái tim người nhận.</p>
+            <p>Tại Flower Shop, chúng tôi cam kết mang đến những mẫu hoa tươi đẹp và ý nghĩa nhất, giúp bạn thể hiện tình cảm đặc biệt dành cho người bạn của mình. Ngoài những mẫu hoa có sẵn trên website, Flower Shop còn nhận thiết kế hoa theo yêu cầu, mang đến những lựa chọn độc đáo và cá nhân hóa cho bạn.</p>
+            <p>Hãy gọi ngay <a href="tel:02838305570" style="color: #ffffff;">02838305570</a> để được tư vấn và lựa chọn những mẫu hoa phù hợp, hoặc đặt hoa nhanh chóng, để mang niềm vui, sự tươi mới đến người thân yêu, vì đôi khi, hạnh phúc chính là một bó hoa giản dị nhưng đầy ắp yêu thương.</p>
+            
+        </div>
+    </div>
+
+            <script>
+        function performSearch() {
+            const query = document.getElementById("searchInput").value;
+            if (query.trim()) {
+                window.location.href = `/search?query=${encodeURIComponent(query)}`;
+            } else {
+                alert("Vui lòng nhập từ khóa để tìm kiếm.");
+            }
+        }
+        function sortProducts() {
+        const sortBy = document.getElementById('sortBy').value;
+        const productGrid = document.querySelector('.product-grid');
+        const productItems = Array.from(productGrid.children);
+
+        // Sắp xếp sản phẩm dựa trên giá trị được chọn
+        if (sortBy === 'priceLowToHigh') {
+            productItems.sort((a, b) => {
+                return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+            });
+        } else if (sortBy === 'priceHighToLow') {
+            productItems.sort((a, b) => {
+                return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+            });
+        } else if (sortBy === 'nameAsc') {
+            productItems.sort((a, b) => {
+                return a.querySelector('h3').innerText.localeCompare(b.querySelector('h3').innerText);
+            });
+        } else if (sortBy === 'nameDesc') {
+            productItems.sort((a, b) => {
+                return b.querySelector('h3').innerText.localeCompare(a.querySelector('h3').innerText);
+            });
+        }
+
+        // Xóa nội dung cũ và thêm lại các sản phẩm đã sắp xếp
+        productGrid.innerHTML = '';
+        productItems.forEach(item => productGrid.appendChild(item));
+    }
+    setItemsPerPageSelected(12);
+    
+    </script>
+    <script src="../../js/searchmenu.js"></script>
+    <script src="../../js/login.js"></script>
+    <script src="../../js/sp.js"></script>
+    
+</body>
+</html>
